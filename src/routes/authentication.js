@@ -2,6 +2,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { pool } from '../database.js';
+import { TABLES } from '../data/tables.js';
 
 const router = express.Router();
 
@@ -18,6 +19,14 @@ router.post('/register', async (req, res) => {
       'INSERT INTO users (username, password, role, name) VALUES (?, ?, ?, ?)',
       [username, hashedPassword, role, name]
     );
+
+    // Creando tablas necesarias
+    for (const table of TABLES) {
+      const [createRelation] = await pool.query(
+        `INSERT INTO ${table} (user_id) VALUES (?)`,
+        [result.insertId]
+      );
+    }
 
     // Genera un token JWT para el usuario recién registrado
     const token = jwt.sign({ username }, 'secreto_dental', {

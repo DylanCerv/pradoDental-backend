@@ -5,6 +5,7 @@ import cors from 'cors';
 import routes from './routes/index.js';
 import authentication from './routes/authentication.js';
 import userController from './controllers/usersControllers.js';
+import fileController from './controllers/filesControllers.js';
 
 const app= express();
 app.use(morgan('dev'));
@@ -13,5 +14,6 @@ app.use(cors());
 app.use(routes);
 app.use(authentication);
 app.use(userController)
+app.use(fileController)
 
 export default app;

@@ -32,10 +32,12 @@ router.post('/register', async (req, res) => {
     const token = jwt.sign({ username }, 'secreto_dental', {
       expiresIn: '1h', // Cambia la duración del token según tus necesidades
     });
+    console.log({username, hashedPassword, role, name})
 
     res.json({
       token,
-      role
+      role,
+      id: result.insertId,
     });
     
   } catch (error) {
@@ -69,7 +71,8 @@ router.post('/login', async (req, res) => {
       return res.json({
         token,
         role,
-        name: user.name
+        name: user.name,
+        // uuid: role.id,
       });
     }
 
@@ -89,7 +92,8 @@ router.post('/login', async (req, res) => {
     res.json({
       token,
       role,
-      name: user.name
+      name: user.name,
+      id: user.id,
     });
   } catch (error) {
     console.error(error);

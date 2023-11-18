@@ -36,7 +36,7 @@ userController.delete('/users/:id', isAdmin, async (req, res) => {
 });
 
 // Endpoint para obtener los datos personales de un usuario por su ID
-userController.get('/users/:id/personal-information', isAdmin, async (req, res) => {
+userController.get('/users/:id/personal-information', async (req, res) => {
   const userId = req.params.id;
   try {
     
@@ -106,7 +106,7 @@ userController.put('/users/:id/personal-information', isAdmin, async (req, res) 
 
 
 // Endpoint para obtener el historial medico de un usuario por su ID
-userController.get('/users/:id/historial-medico', isAdmin, async (req, res) => {
+userController.get('/users/:id/historial-medico', async (req, res) => {
   const userId = req.params.id;
   try {
     

@@ -4,4 +4,6 @@ export const TABLES = [
     "medicalinformation",
     "parentorguardianofpatient",
     "personalinformation",
+    "historial_medico",
+    "dentistahistorialmedico",
 ]

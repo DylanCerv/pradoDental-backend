@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-11-2023 a las 20:28:52
+-- Tiempo de generación: 20-11-2023 a las 15:22:21
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.0.13
 
@@ -48,13 +48,6 @@ CREATE TABLE `dentalhealthanswers` (
   `tecnica_cepillado_hilo_dental_ensenada` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `dentalhealthanswers`
---
-
-INSERT INTO `dentalhealthanswers` (`dental_answers_id`, `user_id`, `sangrado_encias`, `tratamiento_periodontal`, `tratamiento_ortodoncia`, `dientes_sensibles`, `dientes_flojos`, `dolor_oido_o_cuello`, `usa_dentadura`, `experiencia_dental_desagradable`, `descripcion_experiencia_desagradable`, `motivo_consulta`, `fecha_ultima_consulta`, `tratamiento_anterior`, `fecha_ultimos_rayos_x`, `veces_cepillado_diario`, `usa_hilo_dental`, `tecnica_cepillado_hilo_dental_ensenada`) VALUES
-(5, 16, 'no', 'si', 'si', 'si', 'no', 'no', 'no', 'no', 'dsadasdsadsad', NULL, '2023-11-08T05:00:00.000Z', NULL, '2023-11-22T05:00:00.000Z', 5, 'no', 'no');
-
 -- --------------------------------------------------------
 
 --
@@ -80,12 +73,19 @@ CREATE TABLE `dentistahistorialmedico` (
   `consideraciones_manjeo` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `dentistahistorialmedico`
+-- Estructura de tabla para la tabla `files`
 --
 
-INSERT INTO `dentistahistorialmedico` (`dentista_id`, `user_id`, `comentarios_entrevista`, `hallazgos_entrevista`, `hallazgos_exploracion`, `cuello`, `encias`, `atm`, `fondo_saco`, `labios`, `carrillos`, `comisuras`, `piso_boca`, `paladar`, `lengua`, `consideraciones_manjeo`) VALUES
-(1, 16, 'no tengo idea', 'no tengo idea', 'no tengo idea', 'no tengo idea', 'adadasda dsad sa depd s', 'no tengo idea', 'no tengo idea', 'no tengo idea', 'no tengo idea', 'no tengo idea', 'no tengo idea', 'no tengo idea', 'no tengo idea', 'no tengo idea');
+CREATE TABLE `files` (
+  `id` int(11) NOT NULL,
+  `path` text NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -161,13 +161,6 @@ CREATE TABLE `historial_medico` (
   `otras_enfermedades` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `historial_medico`
---
-
-INSERT INTO `historial_medico` (`historial_medico_id`, `user_id`, `anemia`, `hemofilia`, `artritis`, `hepatitis`, `artritis_reumatoide`, `infecciones_frecuentes`, `asma`, `tipo_infeccion`, `ataque_cerebral`, `inmunosupresion`, `boca_seca`, `lupus_eritematoso`, `cancer_quimioterapia_radioterapia`, `miccion_excesiva`, `desmayos_ataques`, `osteoporosis`, `desnutricion`, `perdida_peso_severa_rapida`, `diabetes`, `problemas_tiroides`, `dolor_cronico`, `problemas_rinon`, `dolor_pecho_esforzarse`, `problemas_respiratorios`, `dolores_cabeza_severos_migrana`, `reflujo_gastrointestinal`, `enfermedad_gastrointestinal`, `sangrado_anormal`, `enfermedad_transmision_sexual`, `sida_infeccion_vi_h`, `epilepsia`, `sinusitis`, `glaucoma`, `sudores_nocturnos`, `glandulas_cuello_hinchadas_frecuentemente`, `transfusion_sangre`, `enfermedad_cardiovascular`, `fecha_enfermedad_cardiovascular`, `trastornos_alimenticios`, `trastornos_salud_mental`, `trastornos_sueno`, `especificacion_sueno`, `trastornos_neurologicos`, `tuberculosis`, `ulceras`, `ulceras_boca`, `angina_pecho`, `arritmias`, `arterosclerosis`, `ataque_corazon_infarto`, `defectos_congenitos`, `enfermedad_arterias`, `fiebre_reumatica`, `marcapasos`, `insuficiencia_cardiaca`, `presion_alta`, `presion_baja`, `soplo`, `taquicardia`, `valvulas_artificiales`, `valvulas_danadas`, `otra`, `otras_enfermedades`) VALUES
-(1, 16, 'no', 'no', 'si', 'no', 'si', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', '22/05/2005', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'ninguna', 'no parezco de nada');
-
 -- --------------------------------------------------------
 
 --
@@ -202,13 +195,6 @@ CREATE TABLE `medicalinformation` (
   `cual_anticonceptivos_hormonas` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `medicalinformation`
---
-
-INSERT INTO `medicalinformation` (`informacion_medica_id`, `user_id`, `tuberculosis_activa`, `tos_persistente`, `tos_con_sangre`, `toma_bebidas_alcoholicas`, `fuma`, `usa_drogas`, `dependencia_alcohol_drogas`, `cambio_salud_ultimos_dos_anios`, `bajo_tratamiento_medico`, `enfermedad_en_tratamiento`, `alergico_medicamento`, `alergias_descripcion`, `buen_estado_salud_general`, `medicamento_reciente`, `motivo_medicamento`, `recomendacion_antibiotico`, `tipo_y_dosis_antibiotico`, `hospitalizacion_ultimos_dos_anios`, `reemplazo_articulacion`, `embarazo`, `amamantando`, `anticonceptivos_hormonas`, `cual_anticonceptivos_hormonas`) VALUES
-(3, 16, 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'enfermedad en tratamiento, descripcion', 'no', 'descripcion alergias', 'no', 'no', 'o motivo', 'no', 'nononoo', 'no', 'no', 'no', 'no', 'no', 'nada de nada\r\n');
-
 -- --------------------------------------------------------
 
 --
@@ -230,13 +216,6 @@ CREATE TABLE `parentorguardianofpatient` (
   `postal_code` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `parentorguardianofpatient`
---
-
-INSERT INTO `parentorguardianofpatient` (`parent_guardian_id`, `user_id`, `name`, `age`, `relationship`, `cell_phone`, `paternal_last_name`, `maternal_last_name`, `email`, `address`, `city`, `postal_code`) VALUES
-(3, 16, 'W', 85, 'P', '0997237902', 'Esp', 'Ba', 'de@example.cpm', NULL, NULL, '098');
-
 -- --------------------------------------------------------
 
 --
@@ -257,13 +236,6 @@ CREATE TABLE `personaldatatable` (
   `anestesia` varchar(255) DEFAULT NULL,
   `fecha` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `personaldatatable`
---
-
-INSERT INTO `personaldatatable` (`id`, `user_id`, `dental_answers_id`, `informacion_medica_id`, `parent_guardian_id`, `personal_information_id`, `alerta_medica`, `condicion`, `premedicacion`, `alergias`, `anestesia`, `fecha`) VALUES
-(6, 16, NULL, NULL, NULL, NULL, 'nooo', 'pda', 'ada', 'no', 'no', '10/10/2004');
 
 -- --------------------------------------------------------
 
@@ -297,13 +269,6 @@ CREATE TABLE `personalinformation` (
   `insurance` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `personalinformation`
---
-
-INSERT INTO `personalinformation` (`personal_id`, `user_id`, `name`, `paternal_last_name`, `maternal_last_name`, `cell_phone`, `work_phone`, `email`, `age`, `date_of_birth`, `height_cm`, `weight_kg`, `gender`, `nationality`, `marital_status`, `occupation`, `address`, `postal_code`, `emergency_contact`, `relationship`, `emergency_phone`, `emergency_medical_service`, `insurance`) VALUES
-(4, 16, 'Dylan', 'España', 'Cervantes', '0997237902', '0997237902', 'dylan@example.com', 19, '2023-11-14T05:00:00.000Z', '170.00', '50.00', 'male', 'ecuatoriano', 'soltero', 'freelancer', 'Voluntad de Dios', '080143565', '0997237902', '', '0997237902', 'sdad', 'dasdasd');
-
 -- --------------------------------------------------------
 
 --
@@ -317,15 +282,6 @@ CREATE TABLE `users` (
   `name` varchar(45) DEFAULT NULL,
   `role` enum('admin','client') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `users`
---
-
-INSERT INTO `users` (`id`, `username`, `password`, `name`, `role`) VALUES
-(1, 'admin', 'admin', 'Administrador', 'admin'),
-(4, 'admin@pradodental.com', '$2b$10$Mv668ZOF9hROXmTN61daRODDNzK8glTQ9L199icSayCosu8WgL9ky', 'prado', 'admin'),
-(16, 'dylan@example.com', '$2b$10$ML9gF0X1P9RJzECDGM6UrOivwvAfrFas3Yw9FpnlaDXWYww4Giv76', 'Dylan Españan', 'client');
 
 --
 -- Índices para tablas volcadas
@@ -344,6 +300,12 @@ ALTER TABLE `dentalhealthanswers`
 ALTER TABLE `dentistahistorialmedico`
   ADD PRIMARY KEY (`dentista_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indices de la tabla `files`
+--
+ALTER TABLE `files`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `historial_medico`
@@ -399,13 +361,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `dentalhealthanswers`
 --
 ALTER TABLE `dentalhealthanswers`
-  MODIFY `dental_answers_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `dental_answers_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `dentistahistorialmedico`
 --
 ALTER TABLE `dentistahistorialmedico`
   MODIFY `dentista_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `files`
+--
+ALTER TABLE `files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_medico`
@@ -417,31 +385,31 @@ ALTER TABLE `historial_medico`
 -- AUTO_INCREMENT de la tabla `medicalinformation`
 --
 ALTER TABLE `medicalinformation`
-  MODIFY `informacion_medica_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `informacion_medica_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `parentorguardianofpatient`
 --
 ALTER TABLE `parentorguardianofpatient`
-  MODIFY `parent_guardian_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `parent_guardian_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `personaldatatable`
 --
 ALTER TABLE `personaldatatable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `personalinformation`
 --
 ALTER TABLE `personalinformation`
-  MODIFY `personal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `personal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Restricciones para tablas volcadas
@@ -497,3 +465,6 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- Insertar el administrador predeterminado
+INSERT INTO users (username, password, name, role) VALUES ('admin', 'admin', 'Administrador', 'admin');

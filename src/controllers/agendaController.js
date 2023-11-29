@@ -9,8 +9,6 @@ const agendaController = express.Router();
 // Endpoint para obtener todas las agendas
 agendaController.get('/agenda/all', isAdmin, async (req, res) => {
   try {
-    // Realiza una consulta a la base de datos para obtener usuarios con el rol 'Client'
-    // const [rows] = await pool.query('SELECT * FROM appointments');
     const [rows] = await pool.query(`
       SELECT
         appointments.title,

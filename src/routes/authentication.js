@@ -2,7 +2,8 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { pool } from '../database.js';
-import { TABLES, TABLES_DENTAL } from '../data/tables.js';
+import { TABLES, TABLES_CARTA_DE_CONSENTIMIENTO, TABLES_DENTAL, TABLES_TRATAMIENTO_ENDODONCIA } from '../data/tables.js';
+import { ENDODONCIA_DATOS_EXAMEN, INITIAL_TEETH } from '../data/dataTables.js';
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ async function createUser(username, hashedPassword, role, name) {
 async function createTablesAndInitialData(userId) {
   let tableDiagnosticoGeneral;
   
+  // Crear tablas generales
   for (const table of TABLES) {
     const [createRelation] = await pool.query(
       `INSERT INTO ${table} (user_id) VALUES (?)`,
@@ -26,6 +28,7 @@ async function createTablesAndInitialData(userId) {
     );
   }
 
+  // Crear las tablas necesarias para los tratamientos dentales
   for (const table of TABLES_DENTAL) {
     if (table !== 'Dental_Dientes' && table !== 'Dental_TratamientoAdicional') {
       const [createRelation] = await pool.query(
@@ -36,42 +39,7 @@ async function createTablesAndInitialData(userId) {
     }
   
     if (table === 'Dental_Dientes') {
-      const initialTeeth = [
-        { numero: 11, posicion: 'arriba-izquierda' },
-        { numero: 12, posicion: 'arriba-izquierda' },
-        { numero: 13, posicion: 'arriba-izquierda' },
-        { numero: 14, posicion: 'arriba-izquierda' },
-        { numero: 15, posicion: 'arriba-izquierda' },
-        { numero: 16, posicion: 'arriba-izquierda' },
-        { numero: 17, posicion: 'arriba-izquierda' },
-        { numero: 18, posicion: 'arriba-izquierda' },
-        { numero: 21, posicion: 'arriba-derecha' },
-        { numero: 22, posicion: 'arriba-derecha' },
-        { numero: 23, posicion: 'arriba-derecha' },
-        { numero: 24, posicion: 'arriba-derecha' },
-        { numero: 25, posicion: 'arriba-derecha' },
-        { numero: 26, posicion: 'arriba-derecha' },
-        { numero: 27, posicion: 'arriba-derecha' },
-        { numero: 28, posicion: 'arriba-derecha' },
-        { numero: 38, posicion: 'abajo-derecha' },
-        { numero: 37, posicion: 'abajo-derecha' },
-        { numero: 36, posicion: 'abajo-derecha' },
-        { numero: 35, posicion: 'abajo-derecha' },
-        { numero: 34, posicion: 'abajo-derecha' },
-        { numero: 33, posicion: 'abajo-derecha' },
-        { numero: 32, posicion: 'abajo-derecha' },
-        { numero: 31, posicion: 'abajo-derecha' },
-        { numero: 41, posicion: 'abajo-izquierda' },
-        { numero: 42, posicion: 'abajo-izquierda' },
-        { numero: 43, posicion: 'abajo-izquierda' },
-        { numero: 44, posicion: 'abajo-izquierda' },
-        { numero: 45, posicion: 'abajo-izquierda' },
-        { numero: 46, posicion: 'abajo-izquierda' },
-        { numero: 47, posicion: 'abajo-izquierda' },
-        { numero: 48, posicion: 'abajo-izquierda' },
-      ];
-  
-      for (const tooth of initialTeeth) {
+      for (const tooth of INITIAL_TEETH) {
         await pool.query(
           `INSERT INTO Dental_Dientes (numero, posicion, id_diagnostico_general) VALUES (?, ?, ?)`,
           [tooth.numero, tooth.posicion, tableDiagnosticoGeneral.insertId]
@@ -84,6 +52,41 @@ async function createTablesAndInitialData(userId) {
       );
     }
   }
+
+  // Crear las tablas necesarias para los tratamientos dentales
+  for (const table of TABLES_CARTA_DE_CONSENTIMIENTO) {
+    if (table === 'carta_de_consentimiento') {
+        const direccion = JSON.stringify({
+          'part1': null,
+          'part2': null,
+          'part3': null,
+        });
+      await pool.query(
+        `INSERT INTO carta_de_consentimiento (direccion, user_id) VALUES (?, ?)`,
+        [direccion, userId]
+      );
+    }
+  }
+
+
+  // Crear las tablas necesarias para los tratamientos dentales
+  for (const table of TABLES_TRATAMIENTO_ENDODONCIA) {
+    if (table === 'tratamiento_endodoncia_datos_del_examen') {
+      for (const endodoncia of ENDODONCIA_DATOS_EXAMEN) {
+        await pool.query(
+          `INSERT INTO tratamiento_endodoncia_datos_del_examen (label, name, user_id) VALUES (?, ?, ?)`,
+          [endodoncia.label, endodoncia.name, userId]
+        );
+      }
+    } else {
+      const [createRelation] = await pool.query(
+        `INSERT INTO ${table} (user_id) VALUES (?)`,
+        [userId]
+      );
+      tableDiagnosticoGeneral = createRelation;
+    }
+  }
+
 }
 
 

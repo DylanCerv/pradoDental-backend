@@ -9,6 +9,7 @@ import fileController from './controllers/filesControllers.js';
 import agendaController from './controllers/agendaController.js';
 import diagnosticoDentalController from './controllers/diagnosticoDentalController.js';
 import cartaConsentimientoController from './controllers/cartaConsentimientoController.js';
+import tratamientoEndodonciaControlller from './controllers/tratamientoEndodonciaControlller.js';
 
 const app= express();
 app.use(morgan('dev'));
@@ -21,6 +22,7 @@ app.use(fileController)
 app.use(agendaController)
 app.use(diagnosticoDentalController)
 app.use(cartaConsentimientoController)
+app.use(tratamientoEndodonciaControlller)
 
 export default app;
 

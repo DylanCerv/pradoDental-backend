@@ -45,7 +45,7 @@ agendaController.get('/agenda/user/:id', async (req, res) => {
 agendaController.post('/agenda', isAdmin, async (req, res) => {
     try {
         const { title, user_id, start, end } = req.body;
-        console.log({start, end})
+        // console.log({start, end})
 
         // const formattedStart = new Date(start).toISOString();
         // const formattedEnd = new Date(end).toISOString();

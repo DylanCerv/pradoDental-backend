@@ -24,7 +24,7 @@ tratamientoEndodonciaControlller.get('/tratamiento/endodoncia/:id', async (req, 
     const [rows_tratamiento_endodoncia] = await pool.query(`SELECT * FROM tratamiento_endodoncia WHERE user_id = ?`, [userID]);
     result.tratamiento_endodoncia_datos_del_examen = rows_tratamiento_endodoncia_datos_del_examen;
     result.tratamiento_endodoncia = rows_tratamiento_endodoncia;
-    console.log(result)
+    // console.log(result)
 
     res.json(result);
   } catch (error) {

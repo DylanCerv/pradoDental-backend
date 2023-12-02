@@ -34,7 +34,7 @@ diagnosticoDentalController.put('/diagnostico-dental/byId/:id', isAdmin, async (
     // Actualizar la tabla dental_diagnosticogeneral
     const [result] = await pool.query(`SELECT id FROM dental_diagnosticogeneral WHERE user_id = ?`, [id]);
     const id_diagnostico_general = result[0].id
-    console.log(id_diagnostico_general)
+    // console.log(id_diagnostico_general)
     if (data.diagnosticoGeneral.fecha != null && data.diagnosticoGeneral.fecha !== "") {
       await pool.query(`UPDATE dental_diagnosticogeneral SET fecha = ? WHERE user_id = ?`, [data.diagnosticoGeneral.fecha, id]);
     }

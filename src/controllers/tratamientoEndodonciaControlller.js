@@ -7,6 +7,19 @@ import { TABLES_TRATAMIENTO_ENDODONCIA } from '../data/tables.js';
 
 const tratamientoEndodonciaControlller = express.Router();
 
+function formatDate(fecha) {
+  const date = new Date(fecha);
+  const dates = fecha.split('T');
+  // console.log(dates)  
+
+  // const year = date.getFullYear();
+  // const month = date.getMonth();
+  // const day = String(date.getDate()).padStart(2, '0');
+
+  // return `${year}-${month}-${day}`;
+  return dates[0];
+}
+
 // Endpoint para obtener
 tratamientoEndodonciaControlller.get('/tratamiento/endodoncia/:id', async (req, res) => {
   const userID = req.params.id;
@@ -36,6 +49,10 @@ tratamientoEndodonciaControlller.get('/tratamiento/endodoncia/:id', async (req, 
 tratamientoEndodonciaControlller.put('/tratamiento/endodoncia/:id', async (req, res) => {
   const { id: userId } = req.params;
   const newData = req.body;
+
+  newData.tratamiento_endodoncia_general.fecha = newData.tratamiento_endodoncia_general.fecha ? formatDate(newData.tratamiento_endodoncia_general.fecha) : null;
+  newData.tratamiento_endodoncia_tabla_unida.fecha_inicio = newData.tratamiento_endodoncia_tabla_unida.fecha_inicio ? formatDate(newData.tratamiento_endodoncia_tabla_unida.fecha_inicio) : null;
+  newData.tratamiento_endodoncia_tabla_unida.fecha_obturacion = newData.tratamiento_endodoncia_tabla_unida.fecha_obturacion ? formatDate(newData.tratamiento_endodoncia_tabla_unida.fecha_obturacion) : null;
   // console.log(newData)
 
   try {
